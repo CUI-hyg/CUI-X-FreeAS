@@ -1,0 +1,7 @@
+XGUIUseAgent:GUI、浏览器操作
+XWebSearchAgent:网络搜索
+XSThinkingAgent:专业思考
+XFileOperatorAgent:文件操作
+XCreator:创作生成
+XDeepResearch:深度研究
+XDeepThinking:深度思考
