@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "CUIXFreeMainServ": {
+            "command": "cmd",
+            "args": [
+                "/k",
+                "python",
+                "FreeMainServ.py"
+            ]
+        }
+    }
+}
