@@ -2,12 +2,14 @@ import sys
 sys.path.append("../../Core/")
 import Core.Agent as Agent
 import os
+import time
 
-def AgentInit(userq, configpath):
+def AgentInit(userq, configpath,use_tools):
     try:
         # 使用当前脚本所在目录作为配置路径
-        configpathl = os.path.dirname(os.path.abspath(__file__))
-        result = Agent.AgentMain(userq, configpathl, "yes")
+        sys.path.append("../Agents/XWebSearchAgent/")
+        configpath = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+        result = Agent.AgentMain(userq, configpath, "yes")
         if result is None:
             return "任务执行完成，无具体返回结果"
         elif isinstance(result, str):
