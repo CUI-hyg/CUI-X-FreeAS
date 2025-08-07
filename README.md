@@ -1,5 +1,5 @@
 # CUI-X-FreeAS 下一代Agent框架
-### 由于CUI-X-FreeAS项目的开发陷入了困境中,Agent框架几乎崩溃且经过2天的抢救仍无力回天。故这次重构整个架构,改了名字,为大家带来更Free的体验！
+### 由于CUI-X-HiOS项目的开发陷入了困境中,Agent框架几乎崩溃且经过2天的抢救仍无力回天。故这次重构整个架构,改了名字,为大家带来更Free的体验！
 
 经过几个月的开发与打磨，CUI X-FreeAS (CUI X-Sides Free Agent System) MAS 正式亮相啦~🎉🎉🎉
 
