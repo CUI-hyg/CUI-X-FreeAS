@@ -32,10 +32,10 @@ class MCPClient:
         self.messages = []
         try:
             an_path = os.path.join(self.ConfigPath, "Agent_list.txt")
-            if not os.path.exists(an_path):
-                Agent_name = ""
-            with open (an_path, "r", encoding="gbk") as file:
-                AgentName = file.read()
+            AgentName = ""
+            if os.path.exists(an_path):
+                with open(an_path, "r", encoding="gbk") as file:
+                    AgentName = file.read()
             prompt_path = os.path.join(self.ConfigPath, "Prompt.txt")
             if os.path.exists(prompt_path):
                 try:
