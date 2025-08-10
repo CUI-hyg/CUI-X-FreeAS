@@ -17,15 +17,11 @@ def AgentRun(userq: str):
         cmd = ['python', 'FreeLoopAPI.py', '--query', userq]
         env = os.environ.copy()
         env['PYTHONIOENCODING'] = 'utf-8'
-        process = subprocess.Popen(cmd, env=env)
+        process = subprocess.Popen(cmd, env=env, creationflags=subprocess.CREATE_NEW_CONSOLE)
         process.wait()
-        context_path = os.path.join(project_root, 'context.txt')
-        if os.path.exists(context_path):
-            with open(context_path, 'r', encoding='utf-8') as f:
+        with open("context.txt", 'r', encoding='utf-8') as f:
                 result = f.read()
-                return result
-        else:
-            return "任务执行完成,但无回复"
+        return result
     except Exception as e:
         return f"执行错误: {str(e)}"
 
@@ -36,18 +32,23 @@ def PluginRun(plugin_name: str, plugin_args: str):
         cmd = ['python', f'Plugin/Plugin.py', '-n', plugin_name, '-p', plugin_args]
         env = os.environ.copy()
         env['PYTHONIOENCODING'] = 'utf-8'
-        process = subprocess.Popen(cmd, env=env)
+        process = subprocess.Popen(cmd, env=env, creationflags=subprocess.CREATE_NEW_CONSOLE)
         process.wait()
-        context_path = os.path.join(project_root, 'context.txt')
-        if os.path.exists(context_path):
-            with open(context_path, 'r', encoding='utf-8') as f:
-                result = f.read()
-                return result
-        else:
-            return "插件执行完成，但未有回复"
+        with open("context.txt", 'r', encoding='utf-8') as f:
+            result = f.read()
+        return result
     except Exception as e:
         return f"执行错误: {str(e)}"
 
 if __name__ == "__main__":
+    with open("context.txt", 'w', encoding='utf-8') as f:
+        f.write('')
+    try:
+        if os.path.exists("todo.md"):
+            os.remove("todo.md")
+        if os.path.exists("workflow.json"):
+            os.remove("workflow.json")
+    except Exception as e:
+        print(f"删除文件时出错: {str(e)}")
     print("CUIX-FreeMain-MCP 已启动")
     mcp.run(transport='stdio')
