@@ -134,17 +134,34 @@ def main():
 def print_result(result):
     if isinstance(result, dict):
         if result.get("status") == "success":
-            return {"status": "success", "message": "成功"}
-            if "message" in result:
+            if "result" in result:
+                return {"status": "success", "message": result["result"]}
+            elif "message" in result:
                 return {"status": "success", "message": result["message"]}
-            if "workflow" in result and result["workflow"].get("tasks"):
-                print(f"工作流任务数: {len(result['workflow'].get('tasks', []))}")
-            if "execution_results" in result:
-                print(f"执行结果数: {len(result['execution_results'])}")
+            elif "execution_results" in result:
+                execution_results = result["execution_results"]
+                if isinstance(execution_results, list):
+                    formatted_results = []
+                    for res in execution_results:
+                        if isinstance(res, dict):
+                            task_name = res.get("task", "未知任务")
+                            agent_name = res.get("agent", "未知Agent")
+                            task_result = res.get("result", "无结果")
+                            formatted_results.append(f"任务: {task_name}, Agent: {agent_name}, 结果: {task_result}")
+                        else:
+                            formatted_results.append(str(res))
+                    return {"status": "success", "message": "\n".join(formatted_results)}
+                else:
+                    return {"status": "success", "message": str(execution_results)}
+            else:
+                return {"status": "success", "message": str(result)}
         else:
             return {"status": "error", "message": result.get("message", "未知错误")}
     else:
-        return result
+        if result is not None:
+            return {"status": "success", "message": str(result)}
+        else:
+            return {"status": "success", "message": "任务执行完成"}
 
 def print_results(results):
     if isinstance(results, list):
